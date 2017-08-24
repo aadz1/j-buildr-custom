@@ -1,0 +1,1547 @@
+/* ///////////////// CORE Template Framework Modifications v1.0.1 ///////////////// */
+
+
+/* My custom variables - should align with the paragraph/typography line height that I define in the JB Buildr template admin backend. Will be used to replace variables that relate to typography, inputs, lists, etc, in the Buildr & Zengrid framework  */
+@acustom-align-with-line-height:		30px; // Use a fixed px value here (value should be in line with: @font-size base * @line-height-base)
+@acustom-align-with-line-height-sml:	@acustom-align-with-line-height / 2;
+@acustom-align-with-line-height-pc:		(@acustom-align-with-line-height / @twidth) * 100%;
+@heading-margin-bottom-base:            18px; // This variable should, more or less, align with the base/body font size. It's used in margin calculations for the html heading elements.
+
+@tablet-max-width-ratio-px:				round(@tablet-max-width / @twidth, 2);
+@phone-max-width-ratio-px:				round(@phone-max-width / @twidth, 2);
+
+/* End */
+
+
+/* Changed the gutter variables' value (so that it will align with the @base-padding vertical rhythm variable from the template admin settings). Also, changed some other variable values  */
+@gutter:                40px; // Changed this to align with the @base-padding variable for vertical rhythm
+@gutter-lge:            @gutter * 2;
+
+@modal-padding:         @gutter; // Changed this to align with the @gutter variable for vertical rhythm
+
+@base-line-big:         @line-height-base;
+@base-line:             @line-height-base;
+@base-line-small:       @line-height-base;
+
+/* @alert-padding:		@gutter / 2; */ // Don't change @alert-padding variable because other hard coded, fixed px, values rely on it
+
+/* End */
+
+
+/* Zenshortcodes: defined bottom-margin for columns created with Zenshortcodes, depending on @gridcollapse. */
+@media all and (min-width: @gridcollapse) {
+    
+    .zen-row > .zg-col {
+		margin-bottom: @acustom-align-with-line-height;
+    }
+    
+	.zen-row:last-child > .zg-col {
+		margin-bottom: 0;
+	}
+    
+}
+
+@media all and (max-width: @gridcollapse) {
+	.zen-row:last-child > .zg-col:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+
+/* @media all and (min-width: @gridcollapse) {
+    
+    main div.zen-row > div.zg-col {
+		margin-bottom: @acustom-align-with-line-height;
+    }
+    
+	main div.zen-row:last-child > div.zg-col {
+		margin-bottom: 0;
+	}
+    
+}
+
+@media all and (max-width: @gridcollapse) {
+	main div.zen-row:last-child > div.zg-col:last-child {
+		margin-bottom: 0;
+	}
+} */ // The above code shouldn't be needed
+
+/* End - Zenshortcodes */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_alerts.less */
+.alert {
+  margin-bottom: @acustom-align-with-line-height; // Changed from @line-height-computed
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_blocks.less */
+.block {
+	padding: @block-padding; // Didn't changed from @block-padding
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @block-padding (@block-padding * @tablet-max-width-ratio-px) @block-padding (@block-padding * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @block-padding (@block-padding * @phone-max-width-ratio-px) @block-padding (@block-padding * @phone-max-width-ratio-px);
+    }
+    
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_borders.less */
+div.border {
+	padding: @block-padding; // Didn't hanged from @block-padding
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @block-padding (@block-padding * @tablet-max-width-ratio-px) @block-padding (@block-padding * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @block-padding (@block-padding * @phone-max-width-ratio-px) @block-padding (@block-padding * @phone-max-width-ratio-px);
+    }
+    
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_forms.less */
+fieldset {
+	margin:0 0 @acustom-align-with-line-height 0; // Changed from 0
+
+	legend {
+		margin: 0 0 @acustom-align-with-line-height 0; // Added this new property
+	}
+}
+
+fieldset:last-child {
+	margin:0; // Changed from 0
+}
+
+label {
+	margin-bottom: 0; // Changed from 4px
+}
+
+input,
+textarea {
+	margin-bottom: @acustom-align-with-line-height-sml; // Changed from @gutter-sml
+}
+
+input,select {
+	margin-bottom: @acustom-align-with-line-height-sml; // Changed from @gutter-sml
+}
+
+form {
+	margin-bottom: @acustom-align-with-line-height; // Changed from @gutter
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_grid.less - overrode JB template's zg-col margin-bottom, from @gutter-sml to 0px. By default, when container margin setings are enabled in the template admin, then zg-col also takes on a @gutter-sml value - it doesn't really serve any purpose in the template though, besides throwing off the layout spacing, so I believe it's best to remove it. */
+.zg-col{
+	margin-bottom: 0;
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_labels.less - changed the label's top & bottom padding from 4px */
+.label, label {
+	padding-top: 0;
+    padding-bottom: 8px;
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_lists.less */
+ul, ol {
+	margin-top: 0; // This didn't exist before
+	margin-bottom: @acustom-align-with-line-height; // Changed from @gutter
+	
+	ul, ol {
+		margin-bottom:0; // This didn't exist before
+        margin-left: @acustom-align-with-line-height; // This didn't exist before
+        
+        ul, ol {
+            margin-bottom:0; // This didn't exist before
+            margin-left: @acustom-align-with-line-height; // This didn't exist before
+        }
+	}
+}
+
+.flat-list {
+	margin-bottom: @acustom-align-with-line-height; // Changed from @gutter
+}
+
+dl {
+	margin: @acustom-align-with-line-height 0; // Changed from '@gutter 0'
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_nav.less - changed from 30px to 0 */
+.zen-tab-content {
+ 	margin-bottom: 0;
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_offcanvas.less - changed from 0 0 30px to 0 */
+.off-canvas-body ul {
+    margin: 0;
+}
+
+/* End */
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_tools.less - changed floats, from 3% & 30px, to align with paragraph/typography vertical rhythm */
+.floatleft {
+    margin: 0 @acustom-align-with-line-height @acustom-align-with-line-height-sml 0;
+} // Changed from '0 3% 30px 0'
+.floatright {
+    margin: 0 0 @acustom-align-with-line-height-sml @acustom-align-with-line-height;
+} // Changed from '0 0 3% 30px'
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/_typography.less */
+h6 {
+	text-transform: none; // Changed from uppercase
+}
+
+p {
+	margin:0 0 @acustom-align-with-line-height; // Changed from @gutter-sml
+}
+
+blockquote {
+	// font-size: @font-size-base; // Changed from @font-size-h1
+    margin: 0 0 @acustom-align-with-line-height @acustom-align-with-line-height;
+	padding-left: @acustom-align-with-line-height; // Changed from @base-line
+	
+	small {
+		font-size: @font-size-small; // Changed from 12px
+	}
+}
+
+pre,
+code,
+kbd,
+samp,
+var,
+output {
+	font-size: @font-size-small; // Changed from 85%
+    height: auto;
+	max-height: auto; // Changed from @code-max-height
+}
+
+pre {
+	font-size: @font-size-small; // Changed from 90%
+	padding: @acustom-align-with-line-height; // Changed from @base-padding
+    height: auto;
+	max-height: none; // Changed from @code-max-height
+	margin-bottom: @acustom-align-with-line-height; // Changed from @gutter
+}
+
+mark,
+code,
+samp,
+kbd {
+	padding: @acustom-align-with-line-height; // Changed from @base-padding
+	font-size: @font-size-small; // Changed from 85%
+}
+
+pre code {
+	font-size: @font-size-small; // Changed from 85%
+}
+
+.code-title {
+    font-size: @font-size-small; // Changed from 12px
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_bootstrap_adjustments.less */
+.bootstrap2 .form-inline .form-group, .bootstrap3 .form-inline .form-group {
+    margin-bottom: @acustom-align-with-line-height-sml;
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_contact.less */
+.contact{
+	.zg-collapse,
+	.tab-pane {
+    	overflow:auto; // Changed from hidden
+		max-height:none; // Changed from 0
+	}
+
+	.zg-collapse.in,
+	.tab-pane.active {
+    	heght:auto;
+		max-height:none; // Changed from 1000px
+	}
+    
+    .contact-address {
+		padding-bottom:0; // Changed from @gutter
+	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_item-images.less */
+.item-image {
+	margin:0 0 @acustom-align-with-line-height; // Changed from @gutter
+}
+
+.img-left {
+	margin:0 @acustom-align-with-line-height @acustom-align-with-line-height 0; // Changed from '0 @gutter @gutter 0'
+}
+
+.img-right{
+	margin:0 0 @acustom-align-with-line-height @acustom-align-with-line-height; // Changed from '0 0 @gutter @gutter'
+}
+
+.img-none img{
+	margin:0 auto @acustom-align-with-line-height; // Changed from '0 auto @gutter'
+}
+
+@media screen and (max-width:@tablet-max-width) {
+	.img-right,.img-left {
+		margin:@acustom-align-with-line-height @acustom-align-with-line-height; // Changed from '@gutter 0'
+	}
+}
+
+.img-none {
+
+	.img_caption {
+		margin:-@acustom-align-with-line-height 0 @acustom-align-with-line-height; // Changed from '-@gutter 0 @gutter'
+	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_login.less */
+#login-form {
+	ul {
+		margin:@acustom-align-with-line-height 0 0 0; // Changed from '30px 0 0 0'
+    }
+}
+
+.other-links {
+	margin-top:@acustom-align-with-line-height; // Changed from @gutter
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_profile.less */
+.profile-edit {
+	.form-group {
+		input {
+			margin-bottom:@acustom-align-with-line-height; // Changed from @gutter
+		}
+	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_search.less */
+.search-results {
+	padding-top:@acustom-align-with-line-height; // Changed from @gutter
+    
+    li {
+		padding:@acustom-align-with-line-height 0; // Changed from '@gutter 0'
+	}
+}
+
+#search-searchword {
+	margin-bottom:@gutter; // Changed from 30px
+}
+
+.control-label {
+	text-align: left; // Changed from right
+}
+
+.control-group {
+    margin-bottom:@acustom-align-with-line-height-sml; // Changed from @gutter-sml
+}
+
+.category-list {
+
+	ul {
+		margin-bottom:@gutter; // Changed from 30px
+	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/joomla/_tooltips.less */
+.tooltip {
+  font-size: 12px; // Changed from 11px
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/menu/mean-menu.less */
+.mean-menu-open {
+	.mean-nav {
+		padding-bottom: 0; // Changed from @gutter
+	}
+}
+
+.mean-container .zen-menu-caption {
+	font-size:12px; // Changed from 11px
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/mixins/_border.less */
+.img-border() {
+	.box-shadow(0px 0px 2px rgba(0,0,0,.2));
+	background: #fff !important;
+	padding: 4px;
+	max-width: 98%;
+	margin-bottom: @acustom-align-with-line-height; // ONLY changed this property, from 20px
+} 
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/mixins/_buttons.less */
+.button-variant(@color; @background; @border; @hover) {
+    padding: @button-padding (@button-padding + 5); // Changed from @button-padding
+    line-height: @acustom-align-with-line-height; // This didn't exist before
+    
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    .open .dropdown-toggle& {
+        background-color: lighten(@background, 5%); // Changed from darken(@background, 8%)
+        border-color: lighten(@border, 5%); // Changed from darken(@background, 12%)
+    }    
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/zengrid/libs/zengrid/less/mixins/_typography.less */
+img {
+    height: auto;
+    display: block;
+} 
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/buttons.less */
+.btn-empty {
+	padding: @button-padding (@button-padding + 5);
+    line-height: @acustom-align-with-line-height; // This didn't exist before
+}
+
+.btn-primary,
+input.btn-primary {
+    .button-variant(#fff; @primary; @primary; #fff); // Changed from (#fff; @primary; darken(@primary, 10%);#fff)
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/display.less */
+.row_style(@bg1,@bg-image, @bg-repeat, @bg-size, @bg2,@color, @hcolor, @link,@link-hover,@fullwidth,@overlay) {
+    
+    & when not (@link-hover = inherit) {
+		& when not (@link-hover = none) {
+            
+            a.btn-empty {
+                
+                &:hover {
+					color: @link-hover;
+					border-color: transparent; // Changed from @link-hover
+				}
+			}
+			
+		}
+	}
+    
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/footer.less */
+#footerwrap {
+    font-size: 100%; // Changed from 90%
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/logo.less */
+#logo {	
+	p {
+		margin:0 0 @acustom-align-with-line-height-sml 0;
+	}
+    
+    p:last-child,
+    p:last-child > img:last-child,
+    p:last-child > a:last-child > img {
+    	margin-bottom: 0;
+    }
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/mixins.less */
+.btn() {
+    padding:@button-padding (@button-padding + 5); // Changed from @button-padding
+    line-height: @acustom-align-with-line-height; // This didn't exist before
+}
+
+.simplelist() {
+   
+   	margin: 0 0 @acustom-align-with-line-height; // Changed from @gutter
+   	
+   	li {
+   		padding: 10px 0; // Changed from 4px 0
+   		
+   		li {
+   			padding: 10px 0;
+   		}
+   	}
+    
+    > li:first-child {
+        padding-top: 0; // This didn't exist before
+    } 
+   	
+}
+
+.setModuleStyle (@bgColor, @txtColor){
+  	padding:@gutter; // Changed from @gutter-sml
+  	color: @txtColor;
+ // 	border-bottom: 5px solid darken(@bgColor, 10%);
+  	background: @bgColor;
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+    
+  	.zen-module-title {
+  		span {
+  			color: @txtColor;
+  		}
+  	}
+  	p {
+  		color: @txtColor;
+  		margin: 0 0 @acustom-align-with-line-height; // Changed from 0
+  	}
+  	
+  	h1,h2,h3,h4,h5,h6 {
+  		a {
+  			color: #fff
+  		}
+  	}
+}
+
+.setModuleInsetStyle (@bgColor, @txtHeaderColor, @txtColor){
+  	color: @txtColor!important;
+  	p {
+  		color: @txtColor!important;
+  	}
+  	.zen-module-body {
+  		padding: @gutter; // Changed from @gutter-sml
+  		border: 1px solid lighten(@bgColor, 10%);
+  		background: @bgColor;
+        
+        @media all and (max-width: @tablet-max-width) {
+    	padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    	}
+    
+    	@media all and (max-width: @phone-max-width) {
+    	padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    	}
+        
+  	}
+  	.zen-module-title span {
+  			color: @txtHeaderColor;
+  	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/modules.less */
+.zen-module-title {
+	margin-bottom: auto; // Changed from 10px - the purpose of this invalid value is to cancel the defined value
+	
+	h3 {
+		// Remove the margin on the h3
+		margin: 0 0 @heading-margin-bottom-base 0; // Changed from 0
+		line-height: 1.4; // Changed from normal
+		padding-bottom: inherit; // Changed from 15px
+	}
+}
+
+.moduletable {
+	&.highlight {
+		.zen-module-title {
+			margin-bottom:@acustom-align-with-line-height; // Changed from 30px
+			
+			h3 {
+				margin-bottom: 0;
+			}
+            
+            h1,h2,h4,h5,h6 {
+            	padding-bottom: 0;
+                margin-bottom: 0;
+            }
+		}
+	}
+}
+
+.moduletable.border {
+	padding:@gutter; // Didn't change from @gutter
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+    
+}
+
+.moduletable.dark {
+	padding:@gutter; // Changed from 20px
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+	
+	p,h3,h1,h2,h4,h5,h6 { // Changed from 'p,h3'
+		color:#fff;
+	}
+}
+
+.moduletable.light {
+	padding:@gutter; // Changed from 20px
+    color:#333; // Changed from fff
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+	
+	p,h3,h1,h2,h4,h5,h6 { // Changed from 'p,h3'
+		color:#333;
+	}
+}
+
+.right-heading {
+	h3,h1,h2,h4,h5,h6 { // Changed from h3
+		text-align: right;
+	}
+}
+
+
+.center-heading {
+	h3,h1,h2,h4,h5,h6 { // Changed from h3
+		text-align: center;
+	}
+}
+
+
+.small-heading {
+	h3,h1,h2,h4,h5,h6 { // Changed from h3
+		font-size:100%;
+	}
+}
+
+.moduletable.shadow,
+.inset.shadow .zen-module-body,
+div.shadow {
+	padding:@gutter; // Didn't change from @gutter
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+    
+}
+
+.moduletable.shadow2,
+.inset.shadow2 .zen-module-body,
+div.shadow2 {
+	padding:@gutter; // Didn't change from @gutter
+    
+    @media all and (max-width: @tablet-max-width) {
+    padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+    }
+    
+}
+
+.moduletable {
+	// Rounded corners
+	&.rounded {
+		padding:@gutter; // Changed from 20px
+        
+        @media all and (max-width: @tablet-max-width) {
+    	padding: @gutter (@gutter * @tablet-max-width-ratio-px) @gutter (@gutter * @tablet-max-width-ratio-px);
+    	}
+    
+    	@media all and (max-width: @phone-max-width) {
+    	padding: @gutter (@gutter * @phone-max-width-ratio-px) @gutter (@gutter * @phone-max-width-ratio-px);
+   		}
+		
+		p {
+			margin-bottom:@acustom-align-with-line-height; // Changed from 0
+		}
+	}
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/offcanvas.less */
+#off-canvas-menu {
+	margin-bottom: @gutter; // Changed from 30px
+}
+
+/* End */
+
+
+/* Modifications to /templates/buildr/less/typography.less */
+.moduletable h3 {
+	text-transform: none; // Changed from uppercase
+    
+    @media all and (max-width: @tablet-max-width) {
+    	font-size: @font-size-h3 * .95; // Changed from @font-size-h3
+    }
+    
+    @media all and (max-width: @phone-max-width) {
+    	font-size: @font-size-h3 * .9; // Changed from @font-size-h3
+    }
+}
+
+.article-title {
+	line-height: 1.3; // Changed from 1.2em
+	
+}
+
+.divider {
+ 	margin-bottom: @acustom-align-with-line-height; // Changed from @gutter-sml
+}
+
+/* End */
+
+
+/* Removed bottom margin from the moduletable last-child in every module position (depending on screen width). I decreased specificity of the first rule so that I can still use modules classes (& pasted some JB module css styles, that affect margins, toward then end of this file so that it'll take presedence when used). Also, added gutters & rules for each module position (that wraps the modules). */
+.zg-col > .moduletable:last-child {
+    margin-bottom: 0;
+}
+
+/* @media all and (max-width: @gridcollapse) {
+	div > div:last-child > .moduletable:last-child {
+		margin-bottom: 0;
+	}
+} */ // I believe this rule is covered by the above & the new rules below
+
+/* this adds margin-bottom values to the module positions (that wraps each group of modules) */
+/* @media all and (max-width: @gridcollapse) {
+    
+    #toolbar, #topwrap, #logowrap, #navwrap, #bannerwrap, #tabwrap, #grid1wrap, #grid2wrap, #grid3wrap, #abovewrap, .mainwrap, #belowwrap, #grid4wrap, #grid5wrap, #grid6wrap, #bottomwrap, #footerwrap {
+        
+        div > .zen-row > .zen-spotlight > div {
+            margin-bottom: @gutter;
+        }
+        
+    }
+}
+
+@media all and (max-width: @gridcollapse) {
+    
+    #toolbar, #topwrap, #logowrap, #navwrap, #bannerwrap, #tabwrap, #grid1wrap, #grid2wrap, #grid3wrap, #abovewrap, .mainwrap, #belowwrap, #grid4wrap, #grid5wrap, #grid6wrap, #bottomwrap, #footerwrap {
+        
+        div > .zen-row > .zen-spotlight > div:last-child {
+            margin-bottom: 0;
+        }
+        
+    }
+}
+
+@media all and (max-width: @gridcollapse) {
+    
+    #mainwrap {
+        
+        .zen-container > .zen-row > .zen-spotlight > .zg-col {
+            margin-bottom: @gutter;
+        }
+        
+    }
+}
+
+@media all and (max-width: @gridcollapse) {
+    
+    #mainwrap {
+        
+        .zen-container > .zen-row > .zen-spotlight > .zg-col:last-child {
+            margin-bottom: 0;
+        }
+        
+    }
+} */ // the above styles might not be needed because of the new rules below
+
+@media all and (max-width: @gridcollapse) {        
+    div > .zen-row > .zen-spotlight > .zg-col {
+        margin-bottom: @gutter;
+    }
+}
+
+@media all and (max-width: @gridcollapse) {
+    div > .zen-row > .zen-spotlight > .zg-col:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* sets margin-bottom to 0 for this menu, at @navcollapse (because this one-page-menu's not visible upon navcollapse) */
+@media all and (max-width: @navcollapse) {
+    #one-page-menu-wrap {
+        margin-bottom: 0;
+    }
+}
+
+/* End */
+
+
+/* Removed bottom-margin from the last child element in .zen-module-body & 'article-content'. This helps reduce the excessive bottom-margins everywhere there's content in the template layout. */
+
+/* This specifity is to target the last module in a sidebar */
+.sidebar {
+    > .moduletable:last-child {
+    	margin-bottom: 0;
+	}
+}
+
+/* This specifity is to target the last element in columns/layouts created with Zenshortcodes. Only apply it above grid-collapse because otherwise, there's no vertical spacing between stacked columns below grid collapse (owing to work-around code that's been implemented)  */
+@media all and (min-width: @gridcollapse) {
+    .zen-row > .zg-col {
+        > p:last-child,
+        > p:last-child > img:last-child,
+        > p:last-child > a:last-child > img,
+        > img:last-child,
+        > div:last-child,
+        > div:last-child > img:last-child,
+        > div:last-child > a:last-child > img,
+        > table:last-child,
+        > blockquote:last-child,
+        > button:last-child,
+        > ol:last-child,
+        > ul:last-child,
+        > form:last-child,
+        > span:last-child,
+        > a:last-child,
+        > h1:last-child,
+        > h2:last-child,
+        > h3:last-child,
+        > h4:last-child,
+        > h5:last-child,
+        > h6:last-child,
+        > dl:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* This specifity is to target the last element in a standard module */
+.zen-module-body > div {
+	> p:last-child,
+    > p:last-child > img:last-child,
+    > p:last-child > a:last-child > img,
+    > img:last-child,
+    > div:last-child,
+    > div:last-child > img:last-child,
+    > div:last-child > a:last-child > img,
+    > table:last-child,
+    > blockquote:last-child,
+    > button:last-child,
+    > ol:last-child,
+    > ul:last-child,
+    > form:last-child,
+    > span:last-child,
+    > a:last-child,
+    > h1:last-child,
+    > h2:last-child,
+    > h3:last-child,
+    > h4:last-child,
+    > h5:last-child,
+    > h6:last-child,
+    > dl:last-child {
+    	margin-bottom: 0;
+    }
+}
+
+/* This specifity is to target the last element in an article's content on each page */
+section .article-content {
+	> p:last-child,
+    > p:last-child > img:last-child,
+    > p:last-child > a:last-child > img,
+    > img:last-child,
+    > div:last-child,
+    > div:last-child > img:last-child,
+    > div:last-child > a:last-child > img,
+    > table:last-child,
+    > blockquote:last-child,
+    > button:last-child,
+    > ol:last-child,
+    > ul:last-child,
+    > form:last-child,
+    > span:last-child,
+    > a:last-child,
+    > h1:last-child,
+    > h2:last-child,
+    > h3:last-child,
+    > h4:last-child,
+    > h5:last-child,
+    > h6:last-child,
+    > dl:last-child {
+		margin-bottom: 0;
+	}
+}
+
+/* This specifity is to target the component, if displayed, on each page */
+main {
+	> p:last-child,
+    > p:last-child > img:last-child,
+    > p:last-child > a:last-child > img,
+    > img:last-child,
+    > div:last-child,
+    > div:last-child > img:last-child,
+    > div:last-child > a:last-child > img,
+    > table:last-child,
+    > blockquote:last-child,
+    > button:last-child,
+    > ol:last-child,
+    > ul:last-child,
+    > form:last-child,
+    > span:last-child,
+    > a:last-child,
+    > h1:last-child,
+    > h2:last-child,
+    > h3:last-child,
+    > h4:last-child,
+    > h5:last-child,
+    > h6:last-child,
+    > dl:last-child {
+    	margin-bottom: 0;
+	}
+}
+
+/* End */
+
+
+/* This specifity is to target tabbed sections */
+.zen-tab-pane > div, .tab-pane {
+	> p:last-child,
+    > p:last-child > img:last-child,
+    > p:last-child > a:last-child > img,
+    > img:last-child,
+    > div:last-child,
+    > div:last-child > img:last-child,
+    > div:last-child > a:last-child > img,
+    > table:last-child,
+    > blockquote:last-child,
+    > button:last-child,
+    > ol:last-child,
+    > ul:last-child,
+    > form:last-child,
+    > span:last-child,
+    > a:last-child,
+    > h1:last-child,
+    > h2:last-child,
+    > h3:last-child,
+    > h4:last-child,
+    > h5:last-child,
+    > h6:last-child,
+    > dl:last-child {
+    	margin-bottom: 0;
+	}
+}
+
+/* End */
+
+
+/* Paragraph line-height added to lists in content */
+.article-content, .zen-module-body {
+	ul, ol {
+    	line-height: @acustom-align-with-line-height;
+    }
+}
+
+/* End */
+
+
+/* Heading tag size reduction on tablets & mobiles */
+@media all and (max-width: @tablet-max-width) {
+	h1 {
+    	font-size: @font-size-h1 * .85;
+    }
+    
+    h2 {
+    	font-size: @font-size-h2 * .85;
+    }
+    
+    h3 {
+    	font-size: @font-size-h3 * .95;
+    }
+}
+    
+@media all and (max-width: @phone-max-width) {
+	h1 {
+    	font-size: @font-size-h1 * .75;
+    }
+    
+    h2 {
+    	font-size: @font-size-h2 * .75;
+    }
+    
+    h3 {
+    	font-size: @font-size-h3 * .9;
+    }
+}
+
+/* End */
+
+
+/* Heading tag margin-top removal, if it's the first child */
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+	margin-top: 0;
+}
+
+/* End */
+
+
+/* Transition hover effects changed for links, inputs & buttons */
+a, input:hover, textarea:hover, .btn {
+  -webkit-transition: 0.2s all;
+  -moz-transition: 0.2s all;
+  -o-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+/* End */
+
+
+/* Form fields made responsive. Changed from table - the original 'display:table' value messes up responsiveness */
+form, .form {
+    .control-group {
+	    display:block;
+    }
+}
+
+/* End */
+
+
+/* Heading elements' spacing & line-heights changed */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: @acustom-align-with-line-height;	
+}
+
+h1 {
+	margin-bottom: @heading-margin-bottom-base * 1.33333334;
+	line-height: 1.2;	
+}
+
+h2 {
+	margin-bottom: @heading-margin-bottom-base;
+	line-height: 1.3;	
+}
+
+h3 {
+	margin-bottom: @heading-margin-bottom-base;
+	line-height: 1.4;	
+}
+
+h4, h5, h6 {
+	margin-bottom: @heading-margin-bottom-base * 0.88888889;
+	line-height: 1.5;	
+}
+
+/* End */
+
+
+/* H-tag margin-top set to 0 when it immediately follows columns created by Zenshortcodes */
+.zen-row {
+    + h1,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6 {
+        margin-top: 0;
+    }
+}
+
+/* End */
+
+
+/* Rule to clear .custom class (works best when there's only a single image in a module position, like a logo) - it makes sure the margin-bottom gets applied to modules */
+.custom:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* End */
+
+
+/* JB module classes pasted below so it takes precedence when used. Also, created general classes from the existing JB module classes for margins */
+div.zg-col > div.moduletable {
+
+	// Module classes used for psotioning
+	&.top10 {margin-top: 10px}
+	&.top20 {margin-top: 20px}
+	&.top30 {margin-top: 30px}
+	&.top40 {margin-top: 40px}
+	&.top50 {margin-top: 50px}
+	&.top60 {margin-top: 60px}
+	&.top70 {margin-top: 70px}
+	&.top80 {margin-top: 80px}
+	&.top90 {margin-top: 90px}
+	&.top100 {margin-top: 100px}
+	&.top25 {margin-top: 25px}
+	&.top75 {margin-top: 75px}
+	&.top100 {margin-top: 100px}
+	&.top125 {margin-top: 125px}
+	&.top150 {margin-top: 150px}
+	&.top175 {margin-top: 175px}
+	&.top200 {margin-top: 200px}
+	&.top225 {margin-top: 225px}
+	&.top250 {margin-top: 250px}
+	&.top275 {margin-top: 275px}
+	&.top300 {margin-top: 300px}
+	&.top325 {margin-top: 325px}
+	&.top350 {margin-top: 350px}
+	&.top375 {margin-top: 375px}
+	&.top400 {margin-top: 400px}
+	&.top425 {margin-top: 425px} 
+	&.top450 {margin-top: 450px}
+	&.top475 {margin-top: 475px}
+	&.top500 {margin-top: 500px}
+	
+	
+	// Move Up
+	&.minusbottom10 {margin-bottom: -10px}
+	&.minusbottom20 {margin-bottom: -20px}
+	&.minusbottom30 {margin-bottom: -30px}
+	&.minusbottom40 {margin-bottom: -40px}
+	&.minusbottom50 {margin-bottom: -50px}
+	&.minusbottom60 {margin-bottom: -60px}
+	&.minusbottom70 {margin-bottom: -70px}
+	&.minusbottom80 {margin-bottom: -80px}
+	&.minusbottom90 {margin-bottom: -90px}
+	&.minusbottom100 {margin-bottom: -100px}
+	&.minusbottom125 {margin-bottom: -125px}
+	&.minusbottom150 {margin-bottom: -150px}
+	&.minusbottom175 {margin-bottom: -175px}
+	&.minusbottom200 {margin-bottom: -200px}
+	&.minusbottom225 {margin-bottom: -225px}
+	&.minusbottom250 {margin-bottom: -250px}
+	&.minusbottom275 {margin-bottom: -275px}
+	&.minusbottom300 {margin-bottom: -300px}
+	&.minusbottom325 {margin-bottom: -325px}
+	&.minusbottom350 {margin-bottom: -350px}
+	&.minusbottom375 {margin-bottom: -375px}
+	&.minusbottom400 {margin-bottom: -400px}
+	&.minusbottom425 {margin-bottom: -425px} 
+	&.minusbottom450 {margin-bottom: -450px}
+	&.minusbottom475 {margin-bottom: -475px}
+	&.minusbottom500 {margin-bottom: -500px}
+	
+	&.minustop10 {margin-top: -10px}
+	&.minustop20 {margin-top: -20px}
+	&.minustop30 {margin-top: -30px}
+	&.minustop40 {margin-top: -40px}
+	&.minustop50 {margin-top: -50px}
+	&.minustop60 {margin-top: -60px}
+	&.minustop70 {margin-top: -70px}
+	&.minustop80 {margin-top: -80px}
+	&.minustop90 {margin-top: -90px}
+	&.minustop100 {margin-top: -100px}
+	&.minustop125 {margin-top: -125px}
+	&.minustop150 {margin-top: -150px}
+	&.minustop175 {margin-top: -175px}
+	&.minustop200 {margin-top: -200px}
+	&.minustop225 {margin-top: -225px}
+	&.minustop250 {margin-top: -250px}
+	&.minustop275 {margin-top: -275px}
+	&.minustop300 {margin-top: -300px}
+	&.minustop325 {margin-top: -325px}
+	&.minustop350 {margin-top: -350px}
+	&.minustop375 {margin-top: -375px}
+	&.minustop400 {margin-top: -400px}
+	&.minustop425 {margin-top: -425px} 
+	&.minustop450 {margin-top: -450px}
+	&.minustop475 {margin-top: -475px}
+	&.minustop500 {margin-top: -500px}
+
+	&.bottom10 {margin-bottom: 10px}
+	&.bottom20 {margin-bottom: 20px}
+	&.bottom30 {margin-bottom: 30px}
+	&.bottom40 {margin-bottom: 40px}
+	&.bottom50 {margin-bottom: 50px}
+	&.bottom60 {margin-bottom: 60px}
+	&.bottom70 {margin-bottom: 70px}
+	&.bottom80 {margin-bottom: 80px}
+	&.bottom90 {margin-bottom: 90px}
+	&.bottom100 {margin-bottom: 100px}
+	&.bottom25 {margin-bottom: 25px}
+	&.bottom75 {margin-bottom: 75px}
+	&.bottom100 {margin-bottom: 100px}
+	&.bottom125 {margin-bottom: 125px}
+	&.bottom150 {margin-bottom: 150px}
+	&.bottom175 {margin-bottom: 175px}
+	&.bottom200 {margin-bottom: 200px}
+	&.bottom225 {margin-bottom: 225px}
+	&.bottom250 {margin-bottom: 250px}
+	&.bottom275 {margin-bottom: 275px}
+	&.bottom300 {margin-bottom: 300px}
+	&.bottom325 {margin-bottom: 325px}
+	&.bottom350 {margin-bottom: 350px}
+	&.bottom375 {margin-bottom: 375px}
+	&.bottom400 {margin-bottom: 400px}
+	&.bottom425 {margin-bottom: 425px} 
+	&.bottom450 {margin-bottom: 450px}
+	&.bottom475 {margin-bottom: 475px}
+	&.bottom500 {margin-bottom: 500px}
+    
+}
+
+// GENERAL classes used for psotioning (created by me)
+.top10 {margin-top: 10px}
+.top20 {margin-top: 20px}
+.top30 {margin-top: 30px}
+.top40 {margin-top: 40px}
+.top50 {margin-top: 50px}
+.top60 {margin-top: 60px}
+.top70 {margin-top: 70px}
+.top80 {margin-top: 80px}
+.top90 {margin-top: 90px}
+.top100 {margin-top: 100px}
+.top25 {margin-top: 25px}
+.top75 {margin-top: 75px}
+.top100 {margin-top: 100px}
+.top125 {margin-top: 125px}
+.top150 {margin-top: 150px}
+.top175 {margin-top: 175px}
+.top200 {margin-top: 200px}
+.top225 {margin-top: 225px}
+.top250 {margin-top: 250px}
+.top275 {margin-top: 275px}
+.top300 {margin-top: 300px}
+.top325 {margin-top: 325px}
+.top350 {margin-top: 350px}
+.top375 {margin-top: 375px}
+.top400 {margin-top: 400px}
+.top425 {margin-top: 425px} 
+.top450 {margin-top: 450px}
+.top475 {margin-top: 475px}
+.top500 {margin-top: 500px}
+
+
+// Move Up
+.minusbottom10 {margin-bottom: -10px}
+.minusbottom20 {margin-bottom: -20px}
+.minusbottom30 {margin-bottom: -30px}
+.minusbottom40 {margin-bottom: -40px}
+.minusbottom50 {margin-bottom: -50px}
+.minusbottom60 {margin-bottom: -60px}
+.minusbottom70 {margin-bottom: -70px}
+.minusbottom80 {margin-bottom: -80px}
+.minusbottom90 {margin-bottom: -90px}
+.minusbottom100 {margin-bottom: -100px}
+.minusbottom125 {margin-bottom: -125px}
+.minusbottom150 {margin-bottom: -150px}
+.minusbottom175 {margin-bottom: -175px}
+.minusbottom200 {margin-bottom: -200px}
+.minusbottom225 {margin-bottom: -225px}
+.minusbottom250 {margin-bottom: -250px}
+.minusbottom275 {margin-bottom: -275px}
+.minusbottom300 {margin-bottom: -300px}
+.minusbottom325 {margin-bottom: -325px}
+.minusbottom350 {margin-bottom: -350px}
+.minusbottom375 {margin-bottom: -375px}
+.minusbottom400 {margin-bottom: -400px}
+.minusbottom425 {margin-bottom: -425px} 
+.minusbottom450 {margin-bottom: -450px}
+.minusbottom475 {margin-bottom: -475px}
+.minusbottom500 {margin-bottom: -500px}
+.minustop10 {margin-top: -10px}
+.minustop20 {margin-top: -20px}
+.minustop30 {margin-top: -30px}
+.minustop40 {margin-top: -40px}
+.minustop50 {margin-top: -50px}
+.minustop60 {margin-top: -60px}
+.minustop70 {margin-top: -70px}
+.minustop80 {margin-top: -80px}
+.minustop90 {margin-top: -90px}
+.minustop100 {margin-top: -100px}
+.minustop125 {margin-top: -125px}
+.minustop150 {margin-top: -150px}
+.minustop175 {margin-top: -175px}
+.minustop200 {margin-top: -200px}
+.minustop225 {margin-top: -225px}
+.minustop250 {margin-top: -250px}
+.minustop275 {margin-top: -275px}
+.minustop300 {margin-top: -300px}
+.minustop325 {margin-top: -325px}
+.minustop350 {margin-top: -350px}
+.minustop375 {margin-top: -375px}
+.minustop400 {margin-top: -400px}
+.minustop425 {margin-top: -425px} 
+.minustop450 {margin-top: -450px}
+.minustop475 {margin-top: -475px}
+.minustop500 {margin-top: -500px}
+
+.bottom10 {margin-bottom: 10px}
+.bottom20 {margin-bottom: 20px}
+.bottom30 {margin-bottom: 30px}
+.bottom40 {margin-bottom: 40px}
+.bottom50 {margin-bottom: 50px}
+.bottom60 {margin-bottom: 60px}
+.bottom70 {margin-bottom: 70px}
+.bottom80 {margin-bottom: 80px}
+.bottom90 {margin-bottom: 90px}
+.bottom100 {margin-bottom: 100px}
+.bottom25 {margin-bottom: 25px}
+.bottom75 {margin-bottom: 75px}
+.bottom100 {margin-bottom: 100px}
+.bottom125 {margin-bottom: 125px}
+.bottom150 {margin-bottom: 150px}
+.bottom175 {margin-bottom: 175px}
+.bottom200 {margin-bottom: 200px}
+.bottom225 {margin-bottom: 225px}
+.bottom250 {margin-bottom: 250px}
+.bottom275 {margin-bottom: 275px}
+.bottom300 {margin-bottom: 300px}
+.bottom325 {margin-bottom: 325px}
+.bottom350 {margin-bottom: 350px}
+.bottom375 {margin-bottom: 375px}
+.bottom400 {margin-bottom: 400px}
+.bottom425 {margin-bottom: 425px} 
+.bottom450 {margin-bottom: 450px}
+.bottom475 {margin-bottom: 475px}
+.bottom500 {margin-bottom: 500px}
+
+/* End */
+
+
+/* BreezingForms Pro modifications/resets to inherit Buildr settings & customizations (after selecting 'default' & use 'bootstrap' - which picks up the template's default styling) */
+
+/* reset font size, from 14px */
+.bfQuickMode .bfbs3-btn,
+.bfQuickMode .btn {
+    font-size: @font-size-base !important ; // Changed from 14px
+}
+
+/* reset padding bottom value for labels */
+.bfQuickMode .bfbs3-form-group .bfbs3-control-label,
+.bfQuickMode .form-group .control-label {
+    padding: 0 0 8px 0 !important;
+}
+
+/* This specifity is to target the last element's margin-bottom */
+form div.bfElemWrap:last-child {
+    margin-bottom: 0 !important;
+    
+    > div > div {
+        margin-bottom: 0 !important;
+        
+        .form-control {
+            margin-bottom: 0 !important;
+        }
+        
+    }
+    
+}
+
+/* This specifity is to target Form's bottom margin */
+.bfClearfix form {
+    margin-bottom: 0 !important;
+}
+
+/* overrode margin-bottom from 0 to 30px */
+.bfQuickMode {
+    
+    fieldset {
+        margin-bottom: @acustom-align-with-line-height !important;
+    }
+    
+}
+
+/* This specifity targets the fieldset's margin-bottom that's the last-child */
+.bfQuickMode > div {
+    
+    > section:last-of-type > fieldset:last-of-type {
+        margin-bottom: 0 !important;
+    }
+    
+}
+
+/* overrode these values as I don't see the purpose */
+.bfQuickMode .bfbs3-form-group-actions,
+.bfQuickMode .form-group-actions {
+    margin-bottom: 0 !important; // Changed from 25px
+    min-height: 0 !important; // Changed from 34px
+}
+
+.bfQuickMode .bfbs3-form-inline .bfbs3-form-control, .bfQuickMode .form-inline .form-control {
+    width: 100% !important;
+}
+
+/* overrode min-width from the form's default label styling */
+@media all and (min-width: @gridcollapse) {
+    .bfQuickMode .controls .control-label {
+  	    max-width: 300px !important;
+  	    width:100% !important;
+  }
+}
+
+/* overrode max-width from the form's default input styling */
+@media all and (max-width: @gridcollapse) {
+    .bfQuickMode input[type="text"],
+    .bfQuickMode textarea,
+    .bfQuickMode select,
+    .bfQuickMode .uneditable-input {
+  	    max-width: 100% !important;
+  }
+}
+    
+@media all and (min-width: @gridcollapse) {
+    .bfQuickMode input[type="text"],
+    .bfQuickMode textarea,
+    .bfQuickMode select,
+    .bfQuickMode .uneditable-input {
+        max-width: 600px !important;
+  }
+}
+
+
+.bfQuickMode section section .bfbs3-row,
+.bfQuickMode section section .row,
+.bfQuickMode fieldset .bfbs3-row,
+.bfQuickMode fieldset .row,
+.bfQuickMode section .bfbs3-row,
+.bfQuickMode section .row,
+.bfQuickMode fieldset .bfbs3-row,
+.bfQuickMode fieldset .row,
+.bfQuickMode .bfbs3-row,
+.bfQuickMode .row {
+    margin-left: 0 !important; // Changed from 15px
+}
+
+
+.bfQuickMode .bfElemWrap {
+    margin-bottom: @acustom-align-with-line-height-sml !important;
+}
+
+
+.bfQuickMode .bfbs3-form-group .bfbs3-control-label, .bfQuickMode .form-group .control-label {
+    width: 33% !important; // Changed from 30%
+    min-width: 150px !important; // Changed from 110px
+    margin-right: @acustom-align-with-line-height-sml !important; // Changed from 15px
+}
+/* If you keep the labels above the inputs all the time, as opposed to being next to it, then uncomment the below - make width 100% & assign a max-width! */
+/*
+.bfQuickMode .bfbs3-form-group .bfbs3-control-label, .bfQuickMode .form-group .control-label {
+    width: 100% !important; // Changed from 30%
+    min-width: 150px !important;
+    max-width: 600px !important
+    margin-right: @acustom-align-with-line-height-sml !important; // Changed from 15px
+}
+*/
+
+.bfQuickMode fieldset {
+    padding-right: @acustom-align-with-line-height-sml !important; // Changed from 25px
+}
+
+.bfQuickMode section {
+    padding-right: 0 !important; // Changed from 25px
+}
+
+.bfQuickMode .bfbs3-nonform-control,
+.bfQuickMode .nonform-control {
+    width: 100% !important; // Changed from 69%
+}
+
+/* Rule added to remove the margins on buttons (applied by the JB Buildr styles) */
+.bfQuickMode {
+    button,
+    .btn,
+    .button {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* End */
+
+
+/* ///////////////// End - CORE Template Framework Modifications ///////////////// */
+
+
+
+/* ///////////////// OTHER Template Modifications - Website Specific ///////////////// */
+
+/* ///////////////// End - OTHER Template Modifications - Website Specific ///////////////// */
+
+
+
+/* ///////////////// Extension Modifications ///////////////// */
+
+/* ///////////////// End - Extension Modifications ///////////////// */

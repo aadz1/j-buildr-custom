@@ -1,6 +1,6 @@
 # j-buildr-custom
 
-The custom.less file is the reusable (core) customization file for the Joomla template framework.
+The custom.less file is the reusable (core) customization file for (Joomlabamboo Build.r) Zen Grid Framework v5.
 
 The LESS variables at the top of the file can be modified on a project by project basis.
 
